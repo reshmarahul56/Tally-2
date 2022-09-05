@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+
+<style>
+    h5{
+        text-transform: uppercase;
+    }
+    li{
+       font-size: 18px; 
+    }
+li.sub_group{
+    font-size: 15px;
+}    
+</style>
+<div class="container">
+<div>
+    <h5>Chart of Accounts</h5>
+</div>
+<hr>
+<div style="display:flex; ">
+    <div style="width: 50%; text-align: start;">
+        <h5 style="font-size: 15px;  height: 3%;">List Of Ledgers</h5>
+
+    </div>
+    <div style="width: 50%; text-align: end;">
+      <h5 style="font-size: 15px; padding:5px;">For 1-Apr-22</h5>
+
+    </div>
+</div><hr>
+<div>
+
+
+{% for cat in grpp %}
+<ul>
+    <li style="list-style-type: none;"><h4><u>{{ cat.cat_name }}</u></h4></li>
+    {% for i in cat.maingroup_set.all %}
+    <ul>
+        <li><a href="{% url 'm_group' i.id  %}">{{ i.name }}</li>
+            {% for a in i.subgroup_set.all %}
+            <ul>
+                <li><a href="{% url 's_group' a.id %}">{{ a.name }}</a></li>
+                {% for x in a.ledger_set.all %}
+                <ul>
+                    <li><i><a href="{% url 'ledger_alter' x.id %}">{{ x.ledger_name }}</a></i></li>
+                </ul>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+    </ul>
+    {% endfor %}
+</ul>
+{% endfor %}
+
+
+
+
+   
+
+<hr></div>
+
+
+</div>
+{% endblock %}

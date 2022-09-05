@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+
+<style>
+    h5{
+        text-transform: uppercase;
+    }
+    li{
+       font-size: 18px; 
+    }
+li.sub_group{
+    font-size: 15px;
+}    
+</style>
+<div class="container">
+<div>
+    <h5>Chart of Accounts</h5>
+</div>
+<hr>
+<div style="display:flex; ">
+    <div style="width: 50%; text-align: start;">
+        <h5 style="font-size: 15px;  height: 3%;">List Of Groups</h5>
+
+    </div>
+    <div style="width: 50%; text-align: end;">
+      <h5 style="font-size: 15px; padding:5px;">For 1-Apr-22</h5>
+
+    </div>
+</div>
+<hr>
+
+
+
+    
+{% for group in grp %}
+            <ul>
+                <li><a href="{% url 'm_group' group.id  %}">{{ group.name }}</a></li>
+                {% for i in group.subgroup_set.all %}
+                <ul>
+                    <li><a href="{% url 's_group' i.id %}">{{ i.name }}</a></li>
+                </ul>
+                {% endfor %}
+            </ul>
+{% endfor %}
+ 
+        </div>
+
+
+{% endblock %}
