@@ -10,10 +10,11 @@ class Under(models.Model):
         return self.cat_name
 
 class MainGroup(models.Model):
-    under=models.ForeignKey(Under,null=True,on_delete=models.CASCADE)
+    
     name=models.CharField(max_length=225)
     alias=models.CharField(max_length=225,blank=True)
-    under_group=models.CharField(max_length=225)
+    under=models.ForeignKey(Under,null=True,on_delete=models.CASCADE)
+    nature=models.CharField(max_length=255,blank=True)
     affect_gp=models.CharField(max_length=255,blank=True)
     group=models.CharField(max_length=225)
     nett_balance=models.CharField(max_length=225)

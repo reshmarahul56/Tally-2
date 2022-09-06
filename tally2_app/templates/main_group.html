@@ -91,50 +91,84 @@
                 <div><p>(Alias)</p></div>
                 <input type="text" value="{{ a.alias }}" name="alias" >
                 <div><div><p>Under</p></div>
-                <select name="group_under" id="target">
-                    <option value="">{{ a.under }}</option>
-                    {% for a in und %}
-                    <option value="{{ a.cat_name }}">{{ a.cat_name }}</option>
-                    {% endfor %}
-                    
-                      
-                </select>
+                <input type="text" value="{{ a.under }}" name="under" readonly>
     
-                    <div><p>Nature Of Group</p></div>
-                    <input type="text" value="{{ a.nature }}" name="nature" readonly>
-
+                <div><p>Nature Of Group</p></div>
+                <input type="text" value="{{ a.nature }}" name="nature" readonly>
+                    
                     <div><p>Does it affect gross profit </p></div>
                     <input type="text" value="{{ a.affect_gp }}" name="affect_gp" readonly>
-                
+
                     <div><p>Group behaves like a sub-ledger</p></div>
                     <select name="grp" id="grp">
-                        <option value="{{ a.group }}">{{ a.group }}</option>
-                        <option value="No">No</option> 
-                        <option value="Yes">Yes</option>
-                      
+                       
+                    {% if a.group == "No" %}
+                        <option value="No" selected>No</option>
+                    {% else %}
+                        <option value="No" >No</option>
+                    {% endif %}
+
+                    {% if a.group == "Yes" %}
+                        <option value="Yes" selected>Yes</option>
+                    {% else %}
+                        <option value="Yes" >Yes</option>
+                    {% endif %}
                     </select>
 
                     <div><p>Nett Debit/Credit Balance for Reporting</p></div>
                     <select name="nett" id="nett">
-                        <option value="{{ a.nett_balance }}">{{ a.nett_balance }}</option>
-                        <option value="No">No</option> 
-                        <option value="Yes">Yes</option>
-                      
+                       
+                    {% if a.nett_balance == "No" %}
+                        <option value="No" selected>No</option>
+                    {% else %}
+                        <option value="No" >No</option>
+                    {% endif %}
+
+                    {% if a.nett_balance == "Yes" %}
+                        <option value="Yes" selected>Yes</option>
+                    {% else %}
+                        <option value="Yes" >Yes</option>
+                    {% endif %}
                     </select>
 
                     <div><p>Used for calculation</p></div>
                     <select name="used" id="used">
-                        <option value="{{ a.used_for }}">{{ a.used_for }}</option>
-                        <option value="No">No</option> 
-                        <option value="Yes">Yes</option>
-                      
+                       
+                    {% if a.used_for == "No" %}
+                        <option value="No" selected>No</option>
+                    {% else %}
+                        <option value="No" >No</option>
+                    {% endif %}
+
+                    {% if a.used_for == "Yes" %}
+                        <option value="Yes" selected>Yes</option>
+                    {% else %}
+                        <option value="Yes" >Yes</option>
+                    {% endif %}
                     </select>
 
                     <div><p>Method to allocate when used in purchase invoice</p></div>
                     <select name="method" id="method">
-                        <option value="{{ a.method }}">{{ a.method }}</option>
-                        <option value="Qty">Appropriate by Qty</option> 
-                        <option value="value">Value</option>
+
+                    {% if a.method == "Not Applicable" %}
+                        <option value="Not Applicable" selected>Not Applicable</option>
+                    {% else %}
+                        <option value="Not Applicable" >Not Applicable</option>
+                    {% endif %}
+
+                    {% if a.method == "Appropriate by Qty" %}
+                        <option value="Appropriate by Qty" selected>Appropriate by Qty</option>
+                    {% else %}
+                        <option value="Appropriate by Qty" >Appropriate by Qty</option>
+                    {% endif %}
+
+                    {% if a.method == "Appropriate by Value" %}
+                        <option value="Appropriate by Value" selected>Appropriate by Value</option>
+                    {% else %}
+                        <option value="Appropriate by Value" >Appropriate by Value</option>
+                    {% endif %}
+
+                    
                       
                     </select>
                 
