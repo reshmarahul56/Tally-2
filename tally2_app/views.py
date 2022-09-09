@@ -7,17 +7,43 @@ from tally2_app.models import Costcentr, Ledger,  MainGroup, Print_Cheque, SubGr
 def base(request):
     return render(request, 'base.html')
 
+def home(request):
+    all_Main_groups_count = MainGroup.objects.all().count()
+    all_sub_groups_count = SubGroup.objects.all().count()
+    all_centre_count= Costcentr.objects.all().count()
+    total = all_Main_groups_count + all_sub_groups_count
+
+    ledgers_count = Ledger.objects.all().count()
+    context={
+        "total": total,
+        "all_Main_groups_count": all_Main_groups_count,
+        "all_sub_groups_count":all_sub_groups_count,
+        "ledgers_count" : ledgers_count,
+        "all_centre_count" : all_centre_count
+    }
+    return render(request, 'home.html',context)
+
 def index(request):
     return render(request, 'home.html')
 
 def groups(request):
     grp=MainGroup.objects.all()
-    context={'grp':grp}
+    all_Main_groups_count2 = MainGroup.objects.all().count()
+    all_sub_groups_count2 = SubGroup.objects.all().count()
+    total2 = all_Main_groups_count2 + all_sub_groups_count2
+
+    context={'grp':grp,
+    
+        "total2": total2,
+        "all_Main_groups_count2": all_Main_groups_count2,
+        "all_sub_groups_count2":all_sub_groups_count2,
+        }
     return render(request, 'groups.html',context)   
 
 def m_group(request,pk):
     grp=MainGroup.objects.get(id=pk)
     und=Under.objects.all()
+
     context={'a':grp,'und':und}
     return render(request, 'main_group.html',context)
     
@@ -65,9 +91,23 @@ def sub_grp_alter(request,pk):
     return render(request, 'sub_group.html')  
 
 def ledgers(request):
+    
+    all_Main_groups_count1 = MainGroup.objects.all().count()
+    all_sub_groups_count1 = SubGroup.objects.all().count()
+    total1 = all_Main_groups_count1 + all_sub_groups_count1
+
+    ledgers_count1 = Ledger.objects.all().count()
+    
     grpp=Under.objects.all()
-    context={'grpp':grpp}
-    return render(request, 'ledgers.html',context=context)      
+    context={'grpp':grpp,
+    
+        "total1": total1,
+        "all_Main_groups_count1": all_Main_groups_count1,
+        "all_sub_groups_count1":all_sub_groups_count1,
+        "ledgers_count1" : ledgers_count1
+    
+    }
+    return render(request, 'ledgers.html',context)      
 
 
 def ledger_alter(request,pk):
@@ -212,7 +252,10 @@ def ledger_bank_details(request,pk):
 
 def costcentr(request):
     centr=Costcentr.objects.all()
-    context={'centr':centr,}
+    centr1=Costcentr.objects.count()
+    context={'centr':centr,
+    
+    'centr1':centr1,}
 
     return render(request, 'costcentr.html',context)
 def centr(request,pk):
@@ -232,3 +275,29 @@ def update_centr(request,pk):
         centr.save()
         return redirect('costcentr')
     return render(request, 'update_costcentr.html',)
+
+def delete_Mgroups(request,pk):
+    mgroup=MainGroup.objects.get(id=pk)
+    mgroup.delete()
+    return redirect('groups')
+
+def delete_Sgroups(request,pk):
+    sgroup=SubGroup.objects.get(id=pk)
+    sgroup.delete()
+    return redirect('groups')
+
+def delete_ledgers(request,pk):
+    ledg=Ledger.objects.get(id=pk)
+    ledg.delete()
+    return redirect('ledgers')
+
+def delete_centre(request,pk):
+    cen=Costcentr.objects.get(id=pk)
+    cen.delete()
+    return redirect('costcentr')
+
+
+
+
+
+

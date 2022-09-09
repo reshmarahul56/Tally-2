@@ -2,7 +2,9 @@ from django.contrib import admin
 from django.urls import path,include
 from.import views
 urlpatterns = [
-                path('',views.base,name='base'),
+                path('',views.home,name='home'),
+                path('base',views.base,name='base'),
+                
                 path('index',views.index,name='index'),
                 path('groups/',views.groups,name='groups'),
                 path('m_group/<int:pk>',views.m_group,name='m_group'),
@@ -24,5 +26,9 @@ urlpatterns = [
                 path('update_centr/<int:pk>',views.update_centr,name='update_centr'),
                 path('centr/<int:pk>',views.centr,name='centr'),
                 path('costcentr',views.costcentr,name='costcentr'),
+                path('delete_Mgroups/<int:pk>',views.delete_Mgroups,name='delete_Mgroups'),
+                path('delete_Sgroups/<int:pk>',views.delete_Sgroups,name='delete_Sgroups'),
+                path('delete_ledgers/<int:pk>',views.delete_ledgers,name='delete_ledgers'),
+                path('delete_centre/<int:pk>',views.delete_centre,name='delete_centre'),
                 
 ]

@@ -38,8 +38,12 @@ class SubGroup(models.Model):
     def __str__(self):
         return self.name
 
+class group_count(models.Model):
+    M_count=models.ForeignKey(MainGroup,null=True,on_delete=models.CASCADE)
+    S_count=models.ForeignKey(SubGroup,null=True,on_delete=models.CASCADE)
 
 class Ledger(models.Model):
+    
     subgroup=models.ForeignKey(SubGroup,null=True,on_delete=models.CASCADE)
     ledger_name = models.CharField(max_length=225,default="Null",blank=True)
     ledger_alias = models.CharField(max_length=225,default="Null",blank=True)

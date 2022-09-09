@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
 {% load static %}
-
+<head>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
 <style>
     h5{
         text-transform: uppercase;
@@ -12,7 +15,7 @@
 li.sub_group{
     font-size: 15px;
 }    
-</style>
+</style></head>
 <div class="container">
 <div>
     <h5>Chart of Accounts</h5>
@@ -30,10 +33,11 @@ li.sub_group{
 </div><hr>
 <div>
 
-
+    
 {% for cat in grpp %}
+
 <ul>
-    <li style="list-style-type: none;"><h4><u>{{ cat.cat_name }}</u></h4></li>
+    <li style="list-style-type: none;"><h4><u></u></h4></li>
     {% for i in cat.maingroup_set.all %}
     <ul>
         <li><a href="{% url 'm_group' i.id  %}">{{ i.name }}</li>
@@ -44,21 +48,69 @@ li.sub_group{
                 <ul>
                     <li><i><a href="{% url 'ledger_alter' x.id %}">{{ x.ledger_name }}</a></i></li>
                 </ul>
+                
                 {% endfor %}
             </ul>
             {% endfor %}
     </ul>
     {% endfor %}
 </ul>
+
 {% endfor %}
 
 
 
+</div><br><hr>
+<div style="font-size:20px;"> {{ total1 }} Groups and {{ ledgers_count1 }} Ledgers</div>
+<hr><br></div>
 
+<div class="bottom text-center d-flex justify-content-between">
+    <button class="btn border"><a href="{% url 'index' %}">QUIT</a></button>
+    
+    <button type="button" class="btn border" onclick="myFunction()">SELECT</button>
    
-
-<hr></div>
-
-
+    <button class="btn border">DELETE</button>
+    <button class="btn border"  onclick="removeSelectedRow()">REMOVE LINE</button>
+    <button class="btn border"><a href="{% url 'ledgers' %}">RESTORE LINE</a></button>
 </div>
+
+<script>        
+    var index;  // variable to set the selected row index
+    function getSelectedRow()
+    {
+        var table = document.getElementById("table");
+        for(var i = 1; i < table.rows.length; i++)
+        {
+            table.rows[i].onclick = function()
+            {
+                // clear the selected from the previous selected row
+                // the first time index is undefined
+                if(typeof index !== "undefined"){
+                    table.rows[index].classList.toggle("selected");
+                }              
+                index = this.rowIndex;
+                this.classList.toggle("selected");
+            };
+        }
+    }
+    getSelectedRow();
+</script>
+
+<script>      
+    function myFunction() {
+         var se = document.getElementsByClassName('selected');
+         se[0].style.backgroundColor = "lightblue";
+            
+    }
+</script>
+
+<script>
+    function removeSelectedRow()
+        {
+            table.deleteRow(index);     
+        }
+</script>
 {% endblock %}
+
+
+
