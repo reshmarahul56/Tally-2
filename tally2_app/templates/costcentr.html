@@ -1,239 +1,227 @@
-{% extends 'base.html' %}
+
+
+
+    {% extends 'base.html' %}
     {% block body %}
-        {% load static %}
-    <style>
-        *{
-            padding: 0;
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            box-sizing:border-box;
-        }
-       
-        table,th,td
-{
-    border-collapse: collapse;
-    text-align: center;
-}
-table
-{
-    width: 100%;
-   
-}
-
-
-th
-{
-   
-    border-top: 1.5px solid rgb(121, 186, 255);
-    font-size: 12px;
-    padding: 6px;
-    color: rgb(0, 104, 214);
-    border-bottom: 1.5px solid rgb(121, 186, 255);
+    {% load static %}
+    <head>
+        <style>
     
-}
-
-td
-{
-    padding: 8px;
-    font-size: 13px;
- 
-}
-.lists{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.titles{
-    width: 100%;
-    text-align: center;
-  
-    padding: 10px 5px 5px;
-    color: rgb(59, 159, 252);
-    font-size: 13px;
-
-}
-
-.btns{
-    color: black;
-    text-decoration: none;
+            .close {
+                position: absolute;
+                top: 0;
+                right: 8px;
+                font-size: 25px;
+                color: rgb(0, 0, 0);
+                transform: rotate(45deg);
+                cursor: pointer;
+                text-decoration: none;
+                
+            }
+            .close:hover{
+                color: white;
+            }
     
-  
-
-}
-.btns_prnt{
-    width: 100%;
-    text-align: start;
-    background-color: rgba(240, 248, 255, 0);
-    border: none;
-    /* padding: 6px; */
-
-}
-.btns_prnt:hover{
-    background-color:orange;
-    color: rgb(15, 14, 14);
-}
-
-.btns_prnt2{
-    width: 100%;
-    text-align: start;
-    background-color: rgba(240, 248, 255, 0);
-    border: none;
-    padding: 3px;
-    text-decoration: none;
-
-}
-.btns_prnt2:hover{
-    background-color:orange;
-    color: white;
-}
-.btns_2{
-    width: 100%;
-    text-align: end;
-    background-color: rgba(240, 248, 255, 0);
-    border: none;
-    padding: 6px;
-    
-
-}
-.btns_2:hover{
-    background-color:rgb(181, 213, 240);
-    color: rgb(0, 9, 105);
-}
-
-
-.bg-model {
-	background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(6px);
-
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-
-	display:none;
-	justify-content: center;
-	align-items: center;
-}
-.titles2{
-    width: 100%;
-    text-align: start;
-  
-    padding: 10px 5px 5px;
-    color: black;
-    font-size: 13px;
-
-}
-.close {
-	position: absolute;
-	top: 0;
-	right: 10px;
-	font-size: 30px;
-	color: rgb(255, 255, 255);
-	transform: rotate(45deg);
-	cursor: pointer;
-	
-}
-.close:hover {
-		color: rgb(255, 128, 0);
-	}
-    .moreText {
-  display: none;
-}
-.text.show-more .moreText {
-  display:inline;
-  text-decoration: none;
-}
-.nodec{
-    text-decoration: none;
-}
-    </style>
-</head>
-<body>
-    <div class="container-fluid"  style="height: 100vh;">
-        <h6 style="color: rgb(0, 0, 65); background-color: rgb(142, 211, 250);padding: 2px; height:3%;">Chart Of Accounts</h6>
-    <div style=" display:flex; height: 97%;">
-    <div style="border-right: .5px solid rgb(218, 218, 218); width:100%;  height: 100%; ">
-       
-        <div style="display:flex; padding: 25px;">
+     .table1 th {
+        border: .5px solid rgba(255, 255, 255, .3); ;
         
-        <div style="width: 50%; text-align: start;">
-          <h5 style="color: rgb(247, 239, 239); font-size: 16px; height: 3%;">List Of Cost Centres</h5>
-          <!-- <h5 style="padding:5px;">1-Apr-22 to 31-March-23</h5> -->
-
-      </div>
-      <div style="width: 50%; text-align: end;">
-        <h5 style="color: rgb(241, 235, 235); padding:5px;font-size: 16px;">For 1-Apr-22</h5>
-        <!-- <h5 style="padding:5px;">Friday,1-Apr-22</h5> -->
-
-      </div>
-      </div>
-      <hr>
-  
-           
-      {% for i in centr %}
-      
-  <a href="{% url 'centr' i.id %}"><button  class="btns_prnt" id="create"><h6>{{ i.name }}</h6></button></a>
-
-
-  {% endfor %}
-   
-
-
-  
-  </div><br>
-  <hr>
-
-
-  <div style="font-size:20px;"> {{ centr1 }} Cost Centres</div><hr>
-  <br></div>
-
-  <div class="bottom text-center d-flex justify-content-between">
-    <button class="btn border"><a href="{% url 'index' %}">QUIT</a></button>
-    
-    <button type="button" class="btn border" onclick="myFunction()">SELECT</button>
-   
-    <button class="btn border">DELETE</button>
-    <button class="btn border"  onclick="removeSelectedRow()">REMOVE LINE</button>
-    <button class="btn border"><a href="{% url 'ledgers' %}">RESTORE LINE</a></button>
-</div>
-
-<script>        
-    var index;  // variable to set the selected row index
-    function getSelectedRow()
-    {
-        var table = document.getElementById("table");
-        for(var i = 1; i < table.rows.length; i++)
-        {
-            table.rows[i].onclick = function()
-            {
-                // clear the selected from the previous selected row
-                // the first time index is undefined
-                if(typeof index !== "undefined"){
-                    table.rows[index].classList.toggle("selected");
-                }              
-                index = this.rowIndex;
-                this.classList.toggle("selected");
-            };
-        }
+        
+     }
+     .table-row{
+    cursor:pointer;
     }
-    getSelectedRow();
-</script>
+    
+    .table-row1{
+    cursor:pointer;
+    }
+    .table-row1:hover{
+        background-color: rgb(216, 155, 51);
+    }
+    
+      .btn{
+        border: 1px solid rgb(103, 175, 220);
+        /* height: 30px;
+        text-align: center; */
+        
+        width: 95%;
+        
+    
+        
+      }
+      .table1{
+        border: 1px solid rgb(103, 175, 220);
+      }
+      .selected{background-color:  rgb(216, 155, 51);color: #fff;font-weight: bold
+    }
+      .selected1 {
+        background-color:  rgb(77, 154, 242);
+      }    
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row d-flex " style="background-color: rgb(103, 175, 220);color:#fff;width:100%;margin: auto;">
+                      
+                       
+                          <div class="col "> <a href="javascript:history.go(-1);" class="close">+</a> Chart of Accounts</div>
+                    </div>
+                    
+                    <div class="table-responsive ">
+                        
+                        <table  class="table " style="background-color: rgba(33,57,77,255);color:#fff; " border="1" id="tb1">
+                            <tr >
+                                
+                                
+                                <th>     <table   style="width: 100%;"  id="table">
+                                    <thead>
+                                    <tr>
+                                      <th rowspan="3" colspan="2"   class="align-middle text-white "> 
+                                        <h6 class="d-flex align-items-sm-start par p-1 py-1" style="margin-left: 20px;">List of Cost Centres</h6>
+                                        <th rowspan="3"  class="text-white " style="width: 30px;">
+                                        <h6 style="text-align: end; font-size: 15px;">
+                                            For 1-Apr-22</h6>
+                                        </th>
+                                    </th>
+                                    </tr>
+                                
+                                      
+                                </thead>
+                                <tbody>
+    
+                                    {% for i in centr %}
+    
+                                    <tr class="table-row " data-href="{% url 'centr' i.id %}" >
+    
+                                        <td colspan="2" >{{ i.name }}</td>
+        
+                                    
+                                       
+                                    </tr>
+                                
+                                {% endfor %} 
+                                
+                                
+                                </tbody>
+                                </table>
+                            </th>
+                              
+                              
+            
+                                </table></div>
+                          
+                            
+                         
+                      
+            </div>
+            
+        </div>
+        <div style="font-size:20px;"> {{ centr1 }} Cost Centres</div><hr>
 
-<script>      
-    function myFunction() {
+        <table class="table1 col" style="text-align: center; margin-top: 10px;" >
+            <thead>
+                <th ><a href="{% url 'index' %}" type="button"  class="btn p-1 px-4" >Quit</a></th>
+                <th><button type="button"  class="btn p-1 px-4" onclick="myFunction()">Select</button></th>
+                <th><button type="button"  class="btn p-1 px-1" onclick="removeSelectedRow()">Remove Line</button></th>
+                <th><a href="{% url 'costcentr' %}" type="button"  class="btn p-1 px-1" >Restore Line</a></th>
+            </thead>
+        </table>
+        <br></div>
+    
+        
+
+        <script>
+            $(document).ready(function($) {
+                $(".table-row").dblclick(function() {
+                    window.document.location = $(this).data("href");
+                });
+            });
+        </script>
+        <script>
+                    
+            var index;  // variable to set the selected row index
+            function getSelectedRow()
+            {
+                var table = document.getElementById("table");
+                for(var i = 1; i < table.rows.length; i++)
+                {
+                    table.rows[i].onclick = function()
+                    {
+                        // clear the selected from the previous selected row
+                        // the first time index is undefined
+                        if(typeof index !== "undefined"){
+                            table.rows[index].classList.toggle("selected");
+                        }
+                       
+                        index = this.rowIndex;
+                        this.classList.toggle("selected");
+        
+                    };
+                }
+                    
+            }
+        
+        
+            getSelectedRow();
+        
+            
+        
+            
+            
+            
+            
+        </script>
+        
+        <script>
+        
+           
+        function myFunction() {
          var se = document.getElementsByClassName('selected');
          se[0].style.backgroundColor = "lightblue";
             
-    }
-</script>
-
-<script>
-    function removeSelectedRow()
-        {
-            table.deleteRow(index);     
         }
-</script>
-
+            </script>
+        
+        
+        <!-- <script>
+                
+                var rIndex,
+                    table = document.getElementById("table");
+                
+                
+                function selectedRowToInput()
+                {
+                    
+                    for(var i = 1; i < table.rows.length; i++)
+                    {
+                        table.rows[i].onclick = function()
+                        {
+                          // get the seected row index
+                          rIndex = this.rowIndex;
+                          this.classList.toggle("selected");
+                        
+                        };
+                    }
+                }
+                selectedRowToInput();
+                
+                
+                
+                function removeSelectedRow()
+                {
+                    table.deleteRow(rIndex);
+                    
+                }
+            </script> -->
+        
+        <script>
+        function removeSelectedRow()
+                {
+                    table.deleteRow(index);
+                    
+                }
+        </script>
+        
+        
     {% endblock %}
-
-
