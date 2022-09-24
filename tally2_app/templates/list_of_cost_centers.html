@@ -174,13 +174,12 @@ td
       </div>
       <div style="width: 50%; text-align: end;">
         <a href="alter_cost_create"><button  class="btns_prnt3" id="create"><h5>Create</h5></button></a>
-        <a href=""><button  class="btns_prnt3" id="create"><h5>Back</h5></button></a>
 
       </div>
       </div>
       <hr></hr>
       {% for i in cst %}
-        <a href="{% url 'load_cost_centers' i.id %}"><button  class="btns_prnt" ><h5>{{ i.cname }}</h5></button></a>
+        <a href="{% url 'load_cost_centers' i.id %}"><button  class="btns_prnt" ><h5>{{ i.c_name }}</h5></button></a>
      {% endfor %}
     </div>
     {% endblock %}
